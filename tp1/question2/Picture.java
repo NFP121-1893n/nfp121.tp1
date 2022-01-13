@@ -20,6 +20,10 @@ public class Picture {
     private Square window;
     private Triangle roof;
     private Circle sun;
+    private Circle sunY;
+    private Circle sunW;
+    private int yPosition = -10;
+    private int wPosition;
 
     /**
      * Constructor for objects of class Picture
@@ -50,11 +54,18 @@ public class Picture {
         roof.makeVisible();
 
         sun = new Circle();
-        sun.changeColor("yellow");
+        sun.changeColor("blue");
         sun.moveHorizontal(180);
-        sun.moveVertical(-10);
+        sun.moveVertical(yPosition);
         sun.changeSize(60);
         sun.makeVisible();
+        
+        sunY = new Circle();
+        sunY.changeColor("yellow");
+        sunY.moveHorizontal(120);
+        sunY.moveVertical(-30);
+        sunY.changeSize(60);
+        sunY.makeVisible();
     }
 
     /**
@@ -67,6 +78,7 @@ public class Picture {
             window.changeColor("white");
             roof.changeColor("black");
             sun.changeColor("black");
+            sunY.changeColor("black");
         }
     }
 
@@ -79,8 +91,35 @@ public class Picture {
             wall.changeColor("red");
             window.changeColor("black");
             roof.changeColor("green");
-            sun.changeColor("yellow");
+            sun.changeColor("blue");
+            sunY.changeColor("yellow");
         }
     }
+    
+    public void sunset(int distance) {
+        int delta;
+        wPosition = yPosition;
+        if (distance < 0) {
+            delta = -1;
+            distance = -distance;
+        } else {
+            delta = 1;
+        }
 
+        for (int i = 0; i < distance; i++) {
+            yPosition += delta;
+            
+        }
+        eraser();
+        draw();
+    }
+    
+    private void eraser(){
+        sunW = new Circle();
+        sunW.changeColor("white");
+        sunW.moveHorizontal(180);
+        sunW.moveVertical(wPosition);
+        sunW.changeSize(60);
+        sunW.makeVisible();
+    }
 }
